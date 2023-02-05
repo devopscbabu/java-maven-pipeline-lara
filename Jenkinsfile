@@ -5,6 +5,8 @@ pipeline {
     }
     environment {
         registry = '889884066605.dkr.ecr.ap-south-1.amazonaws.com/repolara'
+        registryCredentials = 'jenkins-ecr-login-credentials'
+        dockerImage = ''
     }
     stages {
         stage('checkout the project') {
@@ -21,6 +23,15 @@ pipeline {
             steps {
                 script {
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
+            }
+        }
+        stage('Deploy the Image to Amazon ECR') {
+            steps {
+                script {
+                    docker.withRegistry( '', registryCredentials ) {
+                    dockerImage.push()
+                    }
                 }
             }
         }

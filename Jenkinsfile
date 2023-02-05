@@ -3,6 +3,8 @@ pipeline {
     tools {
         maven 'M2_HOME'
     }
+    environment {
+        registry = '889884066605.dkr.ecr.ap-south-1.amazonaws.com/repolara'
     stages {
         stage('checkout the project') {
             steps {

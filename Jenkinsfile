@@ -36,4 +36,12 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            slackSend channel: 'demoslackjenkins', message: 'Pipeline Built Successfully'
+}
+        failure { 
+            slackSend channel: 'demoslackjenkins', message: 'Pipeline Failed'
+        }
+    }
 }
